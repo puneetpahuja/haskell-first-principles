@@ -1,0 +1,80 @@
+# intermission
+1. b
+2. c
+3. b
+
+# exercises
+combinators - 1, 3, 4
+diverge - 2
+beta reduce (note : lambda is represented by "L")
+
+1.
+  (Labc.cba)zz(Lwv.w)
+  [a := z]
+  (Lbc.cbz)z(Lwv.w)
+  [b := z]
+  (Lc.czz)(Lwv.w)
+  [c := (Lwv.w)]
+  (Lwv.w)zz
+  [w := z]
+  (Lv.z)z
+  [v := z]
+  z
+
+2.
+  (Lx.Ly.xyy)(La.a)b
+  [x := (La.a)]
+  (Ly.(La.a)yy)b
+  [y := b]
+  (La.a)bb
+  [a := b]
+  bb
+
+3.
+  (Ly.y)(Lx.xx)(Lz.zq)
+  [y := (Lx.xx)]
+  (Lx.xx)(Lz.zq)
+  [x := (Lz.zq)]
+  (Lz.zq) (Lz.zq)
+  [z := (Lz.zq)]
+  (Lz.zq)q
+  qq
+
+4.
+  alpha equivalent to 3.
+  yy
+
+5.
+  (Lx.Ly.xyy)(Ly.y)y
+  Renaming the variables for clarity
+  (Lx.Lw.xww)(Lz.z)y
+  [x := (Lz.z)]
+  (Lw.(Lz.z)ww)y
+  [w := y]
+  (Lz.z)yy
+  [z := y]
+  yy
+
+6.
+  (La.aa)(Lb.ba)c
+  Renaming variables for clarity
+  (Lx.xx)(Lb.ba)c
+  [x := (Lb.ba)]
+  (Lb.ba)(Lb.ba)c
+  [b := (Lb.ba)]
+  (Lb.ba)ac
+  [b := a]
+  aac
+
+7.
+  (Lxyz.xz(yz))(Lx.z)(Lx.a)
+  Renaming variables for clarity
+  (Lxyw.xw(yw))(Lv.z)(Lb.a)
+  [x := (Lv.z)]
+  (Lyw.(Lv.z)w(yw))(Lb.a)
+  [y := (Lb.a)]
+  (Lw.(Lv.z)w((Lb.a)w))
+  [v := w]
+  (Lw.z((Lb.a)w))
+  [b := w]
+  (Lw.za)
