@@ -1,0 +1,44 @@
+
+./ch2.hs,263
+module Ch2 Ch22,3
+sayHello sayHello4,5
+sayHello sayHello5,6
+triple triple7,8
+half half8,9
+square square9,10
+circleArea circleArea10,11
+x x12,13
+myResult myResult13,14
+y y14,15
+foo foo16,17
+printInc printInc21,22
+printInc2 printInc224,25
+
+./ch2_exercises.hs,454
+module Ch2Exercises Ch2Exercises2,3
+x x16,17
+y y17,18
+f f18,19
+x1 x126,27
+xSquare xSquare29,30
+xy xy32,33
+xPlus3 xPlus336,37
+first first40,41
+second second44,45
+third third48,49
+eEx eEx54,55
+eExS eExS55,56
+e1 e157,58
+e1S e1S58,59
+e2 e260,61
+e2S e2S61,62
+e2S2 e2S262,63
+e3 e364,65
+e3S e3S65,66
+zz zz72,73
+yy yy73,74
+xx xx74,75
+waxOn waxOn75,76
+waxOn2 waxOn280,81
+triple triple86,87
+waxOff waxOff89,90
