@@ -1,6 +1,6 @@
--- ch2.hs
+-- code.hs
 
-module Ch2 where
+module Code where
 
 sayHello :: String -> IO ()
 sayHello x = putStrLn ("Hello, " ++ x ++ "!")

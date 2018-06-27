@@ -1,6 +1,6 @@
 
-./ch2.hs,263
-module Ch2 Ch22,3
+./code.hs,265
+module Code Code2,3
 sayHello sayHello4,5
 sayHello sayHello5,6
 triple triple7,8
@@ -14,8 +14,8 @@ foo foo16,17
 printInc printInc21,22
 printInc2 printInc224,25
 
-./ch2_exercises.hs,454
-module Ch2Exercises Ch2Exercises2,3
+./exercises.hs,448
+module Exercises Exercises2,3
 x x16,17
 y y17,18
 f f18,19

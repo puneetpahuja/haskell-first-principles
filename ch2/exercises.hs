@@ -1,6 +1,6 @@
--- ch2Exercises.hs
+-- exercises.hs
 
-module Ch2Exercises where
+module Exercises where
 
 -- # Parentheses and association
 -- same - 2

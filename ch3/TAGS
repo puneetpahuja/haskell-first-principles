@@ -1,0 +1,42 @@
+
+./print2.hs,56
+module Print2 Print21,2
+main main3,4
+main main4,5
+
+./print3.hs,185
+module Print3 Print31,2
+myGreeting myGreeting3,4
+myGreeting myGreeting4,5
+hello hello6,7
+hello hello7,8
+world world9,10
+world world10,11
+main main12,13
+main main13,14
+
+./print1.hs,41
+module Print1 Print11,2
+main main4,5
+
+./print3flipped.hs,199
+module Print3Flipped Print3Flipped1,2
+myGreeting myGreeting3,4
+myGreeting myGreeting4,5
+hello hello6,7
+hello hello7,8
+world world9,10
+world world10,11
+main main12,13
+main main13,14
+
+./exercises.hs,47
+module Exercises Exercises1,2
+area area6,7
+
+./topOrLocal.hs,179
+module TopOrLocal TopOrLocal1,2
+topLevelFunction topLevelFunction3,4
+topLevelFunction topLevelFunction4,5
+topLevelValue topLevelValue8,9
+topLevelValue topLevelValue9,10
