@@ -8,10 +8,10 @@ module Exercises where
 
 -- # Heal the sick
 -- 1. Remove space between . and 1 in 3.14
--- let area x = 3.14 * (x * x)
+area x = 3.14 * (x * x)
 
 -- 2. variable b not in scope
--- let double x = x * 2
+double x = x * 2
 
 -- 3. fix indentation
 x = 7
