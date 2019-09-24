@@ -1,9 +1,14 @@
 module Main where
 
-import           Data.Char       (toUpper)
-import           Data.List       (sort)
-import           Test.QuickCheck (Arbitrary (..), elements, frequency,
-                                  quickCheck, verboseCheck)
+import Data.Char (toUpper)
+import Data.List (sort)
+import Test.QuickCheck
+  ( Arbitrary(..)
+  , elements
+  , frequency
+  , quickCheck
+  , verboseCheck
+  )
 
 main :: IO ()
 main = runQc
@@ -21,8 +26,8 @@ listOrdered :: (Ord a) => [a] -> Bool
 listOrdered xs = snd $ foldr go (Nothing, True) xs
   where
     go _ status@(_, False) = status
-    go y (Nothing, t)      = (Just y, t)
-    go y (Just x, t)       = (Just y, x >= y)
+    go y (Nothing, t) = (Just y, t)
+    go y (Just x, t) = (Just y, x >= y)
 
 prop_listOrdered :: (Ord a) => [a] -> Bool
 prop_listOrdered = listOrdered . sort

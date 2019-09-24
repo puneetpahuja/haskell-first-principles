@@ -1,9 +1,9 @@
 module Ciphers where
 
-import           Control.Monad (forever)
-import           Data.Bool     (bool)
-import           Data.Char     (chr, isAlpha, isUpper, ord, toLower)
-import           System.Exit   (exitSuccess)
+import Control.Monad (forever)
+import Data.Bool (bool)
+import Data.Char (chr, isAlpha, isUpper, ord, toLower)
+import System.Exit (exitSuccess)
 
 data ShiftDirection
   = L

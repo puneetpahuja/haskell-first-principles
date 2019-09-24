@@ -1,8 +1,8 @@
 module Main where
 
-import qualified Data.Map        as M
-import           Morse
-import           Test.QuickCheck
+import qualified Data.Map as M
+import Morse
+import Test.QuickCheck
 
 allowedChars :: [Char]
 allowedChars = M.keys letterToMorse

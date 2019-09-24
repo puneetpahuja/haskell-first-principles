@@ -1,7 +1,7 @@
 module Test where
 
-import           Main
-import           Test.Hspec
+import Main
+import Test.Hspec
 
 filledInSoFar :: [Maybe Char]
 filledInSoFar =

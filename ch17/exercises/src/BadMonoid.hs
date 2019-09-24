@@ -1,9 +1,9 @@
 module BadMonoid where
 
-import           Data.Monoid
-import           Test.QuickCheck
-import           Test.QuickCheck.Checkers
-import           Test.QuickCheck.Classes
+import Data.Monoid
+import Test.QuickCheck
+import Test.QuickCheck.Checkers
+import Test.QuickCheck.Classes
 
 data Bull
   = Fools

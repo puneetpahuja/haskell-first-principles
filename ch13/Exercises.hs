@@ -1,8 +1,8 @@
 module Exercises where
 
-import           Control.Monad (forever)
-import           Data.Char     (isAlpha, toLower)
-import           System.Exit   (exitSuccess)
+import Control.Monad (forever)
+import Data.Char (isAlpha, toLower)
+import System.Exit (exitSuccess)
 
 palindrome :: IO ()
 palindrome =

@@ -1,11 +1,12 @@
 module Exercises where
 
-import           Data.List                 (elemIndex)
-import           Data.Monoid
-import           Test.QuickCheck           (arbitrary, frequency)
-import           Test.QuickCheck.Arbitrary (Arbitrary)
-import           Test.QuickCheck.Checkers
-import           Test.QuickCheck.Classes   (applicative)
+import Control.Applicative (liftA3)
+import Data.List (elemIndex)
+import Data.Monoid
+import Test.QuickCheck (arbitrary, frequency)
+import Test.QuickCheck.Arbitrary (Arbitrary)
+import Test.QuickCheck.Checkers
+import Test.QuickCheck.Classes (applicative)
 
 -- Lookups
 added :: Maybe Integer
@@ -115,7 +116,7 @@ instance Semigroup (List a) where
   Cons x xs <> ys = Cons x (xs <> ys)
 
 instance Functor List where
-  fmap _ Nil         = Nil
+  fmap _ Nil = Nil
   fmap f (Cons a as) = Cons (f a) (fmap f as)
 
 instance Applicative List where
@@ -345,6 +346,21 @@ instance (Arbitrary a, Arbitrary b) => Arbitrary (Four' a b) where
     b2 <- arbitrary
     b3 <- arbitrary
     return $ Four' a b1 b2 b3
+
+makeTriple :: a -> b -> c -> (a, b, c)
+makeTriple = (,,)
+
+combos :: [a] -> [b] -> [c] -> [(a, b, c)]
+combos = liftA3 makeTriple
+
+stops :: String
+stops = "pbtdkg"
+
+vowels :: String
+vowels = "aeiou"
+
+stopsVowelsStops :: [(Char, Char, Char)]
+stopsVowelsStops = combos stops vowels stops
 
 main :: IO ()
 main = do

@@ -1,7 +1,7 @@
 module Exercises where
 
-import           Data.Bool
-import           Data.Char
+import Data.Bool
+import Data.Char
 
 -- Determine the kinds
 -- 1. id :: a -> a
@@ -16,7 +16,7 @@ replaceThe sentence = unwords $ map theToA $ words sentence
 
 theToA :: String -> String
 theToA "the" = "a"
-theToA s     = s
+theToA s = s
 
 vowels :: String
 vowels = "aeiouAEIOU"
@@ -55,7 +55,7 @@ data Nat
   deriving (Eq, Show)
 
 natToInteger :: Nat -> Integer
-natToInteger Zero     = 0
+natToInteger Zero = 0
 natToInteger (Succ x) = 1 + natToInteger x
 
 integerToNat :: Integer -> Maybe Nat
@@ -67,64 +67,64 @@ integerToNat x = fmap Succ $ integerToNat $ x - 1
 -- small library for maybe
 isJust :: Maybe a -> Bool
 isJust (Just _) = True
-isJust _        = False
+isJust _ = False
 
 isNothing :: Maybe a -> Bool
 isNothing = not . isJust
 
 mayybee :: b -> (a -> b) -> Maybe a -> b
-mayybee b _ Nothing  = b
+mayybee b _ Nothing = b
 mayybee _ f (Just a) = f a
 
 fromMaybe :: a -> Maybe a -> a
-fromMaybe x Nothing  = x
+fromMaybe x Nothing = x
 fromMaybe _ (Just x) = x
 
 listToMaybe :: [a] -> Maybe a
-listToMaybe []    = Nothing
+listToMaybe [] = Nothing
 listToMaybe (x:_) = Just x
 
 maybeToList :: Maybe a -> [a]
-maybeToList Nothing  = []
+maybeToList Nothing = []
 maybeToList (Just x) = [x]
 
 catMaybes :: [Maybe a] -> [a]
-catMaybes []           = []
+catMaybes [] = []
 catMaybes (Nothing:xs) = catMaybes xs
-catMaybes (Just x:xs)  = x : catMaybes xs
+catMaybes (Just x:xs) = x : catMaybes xs
 
 flipMaybe :: [Maybe a] -> Maybe [a]
 flipMaybe = foldr go (Just [])
   where
-    go _ Nothing          = Nothing
-    go Nothing _          = Nothing
+    go _ Nothing = Nothing
+    go Nothing _ = Nothing
     go (Just x) (Just xs) = Just (x : xs)
 
 -- small library for either
 lefts' :: [Either a b] -> [a]
 lefts' = foldr go []
   where
-    go (Left a) as  = a : as
+    go (Left a) as = a : as
     go (Right _) as = as
 
 rights' :: [Either a b] -> [b]
 rights' = foldr go []
   where
     go (Right b) bs = b : bs
-    go (Left _) bs  = bs
+    go (Left _) bs = bs
 
 partitionEithers' :: [Either a b] -> ([a], [b])
 partitionEithers' = foldr go ([], [])
   where
-    go (Left a) (as, bs)  = (a : as, bs)
+    go (Left a) (as, bs) = (a : as, bs)
     go (Right b) (as, bs) = (as, b : bs)
 
 eitherMaybe' :: (b -> c) -> Either a b -> Maybe c
-eitherMaybe' _ (Left _)  = Nothing
+eitherMaybe' _ (Left _) = Nothing
 eitherMaybe' f (Right b) = Just . f $ b
 
 either' :: (a -> c) -> (b -> c) -> Either a b -> c
-either' f _ (Left a)   = f a
+either' f _ (Left a) = f a
 either' _ f' (Right b) = f' b
 
 eitherMaybe'' :: (b -> c) -> Either a b -> Maybe c
@@ -137,7 +137,7 @@ myIterate f a = a : myIterate f (f a)
 myUnfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 myUnfoldr f b =
   case f b of
-    Nothing       -> []
+    Nothing -> []
     Just (a', b') -> a' : myUnfoldr f b'
 
 betterIterate :: (a -> a) -> a -> [a]
@@ -152,7 +152,7 @@ data BinaryTree a
 unfold :: (a -> Maybe (a, b, a)) -> a -> BinaryTree b
 unfold f a =
   case f a of
-    Nothing            -> Leaf
+    Nothing -> Leaf
     Just (a', b', a'') -> Node (unfold f a') b' (unfold f a'')
 
 treeBuild :: Integer -> BinaryTree Integer
