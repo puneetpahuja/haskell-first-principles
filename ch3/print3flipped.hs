@@ -14,4 +14,5 @@ main :: IO ()
 main = do
   putStrLn myGreeting
   putStrLn secondGreeting
-    where secondGreeting = (++) hello ((++) " " world)
+  where
+    secondGreeting = (++) hello ((++) " " world)
