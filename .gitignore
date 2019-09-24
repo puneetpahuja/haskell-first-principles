@@ -1,3 +1,5 @@
 Session.vim
 .stack-work
 stack.yaml.lock
+*.hi
+*.o
