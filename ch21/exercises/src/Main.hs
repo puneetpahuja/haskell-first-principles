@@ -2,8 +2,7 @@
 
 module Main where
 
-import           Test.QuickCheck          (Arbitrary, Property, Testable,
-                                           arbitrary, frequency)
+import           Test.QuickCheck          (Arbitrary, Property, Testable, arbitrary, frequency)
 import           Test.QuickCheck.Checkers (EqProp, eq, quickBatch, (=-=))
 import           Test.QuickCheck.Classes  (traversable)
 

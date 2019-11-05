@@ -1,14 +1,7 @@
 module Main where
 
-import Data.Monoid
-import Test.QuickCheck
-  ( Arbitrary
-  , CoArbitrary
-  , arbitrary
-  , frequency
-  , quickCheck
-  , verboseCheck
-  )
+import           Data.Monoid
+import           Test.QuickCheck (Arbitrary, CoArbitrary, arbitrary, frequency, quickCheck, verboseCheck)
 
 data Booly
   = False'
@@ -16,7 +9,7 @@ data Booly
 
 instance Semigroup Booly where
   (<>) True' True' = True'
-  (<>) _ _ = False'
+  (<>) _ _         = False'
 
 instance Monoid Booly where
   mempty = True'
@@ -29,8 +22,8 @@ data Optional a
 
 instance Semigroup a => Semigroup (Optional a) where
   (<>) (Only x) (Only y) = Only $ x <> y
-  (<>) Nada x = x
-  (<>) x Nada = x
+  (<>) Nada x            = x
+  (<>) x Nada            = x
 
 instance Monoid a => Monoid (Optional a) where
   mempty = Nada
@@ -79,8 +72,8 @@ newtype First' a =
 instance Semigroup (First' a) where
   (<>) x y =
     case (getFirst' x, getFirst' y) of
-      (Nada, p) -> First' {getFirst' = p}
-      (p, Nada) -> First' {getFirst' = p}
+      (Nada, p)        -> First' {getFirst' = p}
+      (p, Nada)        -> First' {getFirst' = p}
       (Only p, Only q) -> First' {getFirst' = Only p}
 
 instance Monoid (First' a) where

@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP                #-}
 {-# LANGUAGE NoRebindableSyntax #-}
 {-# OPTIONS_GHC -fno-warn-missing-import-lists #-}
 module Paths_exercises (
@@ -7,10 +7,10 @@ module Paths_exercises (
     getDataFileName, getSysconfDir
   ) where
 
-import qualified Control.Exception as Exception
-import Data.Version (Version(..))
-import System.Environment (getEnv)
-import Prelude
+import qualified Control.Exception  as Exception
+import           Data.Version       (Version (..))
+import           Prelude
+import           System.Environment (getEnv)
 
 #if defined(VERSION_base)
 

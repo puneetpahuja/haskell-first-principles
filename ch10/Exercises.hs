@@ -1,7 +1,7 @@
 module Exercises where
 
-import Data.Bool
-import Data.Time
+import           Data.Bool
+import           Data.Time
 
 data DatabaseItem
   = DbString String
@@ -23,14 +23,14 @@ filterDbDate = foldr f []
   where
     f :: DatabaseItem -> [UTCTime] -> [UTCTime]
     f (DbDate x) xs = x : xs
-    f _ xs = xs
+    f _ xs          = xs
 
 filterDbNumber :: [DatabaseItem] -> [Integer]
 filterDbNumber = foldr f []
   where
     f :: DatabaseItem -> [Integer] -> [Integer]
     f (DbNumber x) xs = x : xs
-    f _ xs = xs
+    f _ xs            = xs
 
 mostRecent :: [DatabaseItem] -> UTCTime
 mostRecent = maximum . filterDbDate

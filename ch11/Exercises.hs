@@ -1,13 +1,13 @@
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE NamedFieldPuns             #-}
 
 module Exercises where
 
-import Data.Bool
-import Data.Char
-import Data.List
-import Data.Maybe
+import           Data.Bool
+import           Data.Char
+import           Data.List
+import           Data.Maybe
 
 data Price =
   Price Integer
@@ -44,7 +44,7 @@ doge = Plane PapuAir (Size 44)
 
 isCar :: Vehicle -> Bool
 isCar (Car _ _) = True
-isCar _ = False
+isCar _         = False
 
 isPlane :: Vehicle -> Bool
 isPlane = not . isCar
@@ -90,7 +90,7 @@ data ProgLang
 
 data Programmer =
   Programmer
-    { os :: OperatingSystem
+    { os   :: OperatingSystem
     , lang :: ProgLang
     }
   deriving (Eq, Show)
@@ -119,7 +119,7 @@ data BinaryTree a
   deriving (Eq, Ord, Show)
 
 mapTree :: (a -> b) -> BinaryTree a -> BinaryTree b
-mapTree _ Leaf = Leaf
+mapTree _ Leaf                = Leaf
 mapTree f (Node left a right) = Node (mapTree f left) (f a) (mapTree f right)
 
 testTree' :: BinaryTree Integer
@@ -131,15 +131,15 @@ mapExpected = Node (Node Leaf 4 Leaf) 2 (Node Leaf 5 Leaf)
 mapOkay = mapTree (+ 1) testTree' == mapExpected
 
 preOrder :: BinaryTree a -> [a]
-preOrder Leaf = []
+preOrder Leaf                = []
 preOrder (Node left a right) = [a] ++ preOrder left ++ preOrder right
 
 postOrder :: BinaryTree a -> [a]
-postOrder Leaf = []
+postOrder Leaf                = []
 postOrder (Node left a right) = postOrder left ++ postOrder right ++ [a]
 
 inOrder :: BinaryTree a -> [a]
-inOrder Leaf = []
+inOrder Leaf                = []
 inOrder (Node left a right) = inOrder left ++ [a] ++ inOrder right
 
 testTree = Node (Node Leaf 1 Leaf) 2 (Node Leaf 3 Leaf)
@@ -231,9 +231,9 @@ reverseTaps p@(DaPhone ((digit, cs):ds)) c
   | otherwise = reverseTaps (DaPhone ds) c
 
 findCaps :: DaPhone -> Digit
-findCaps (DaPhone []) = '$'
+findCaps (DaPhone [])                  = '$'
 findCaps (DaPhone ((digit, "CAPS"):_)) = digit
-findCaps (DaPhone (_:xs)) = findCaps (DaPhone xs)
+findCaps (DaPhone (_:xs))              = findCaps (DaPhone xs)
 
 cellPhonesDead :: DaPhone -> String -> [(Digit, Presses)]
 cellPhonesDead p = concatMap (reverseTaps p)
@@ -268,9 +268,9 @@ data Expr
   | Add Expr Expr
 
 eval :: Expr -> Integer
-eval (Lit x) = x
+eval (Lit x)     = x
 eval (Add e1 e2) = eval e1 + eval e2
 
 printExpr :: Expr -> String
-printExpr (Lit x) = show x
+printExpr (Lit x)     = show x
 printExpr (Add e1 e2) = printExpr e1 ++ " + " ++ printExpr e2

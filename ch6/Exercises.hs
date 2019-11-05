@@ -1,6 +1,6 @@
 module Exercises where
 
-import Data.List (sort)
+import           Data.List (sort)
 
 data TisAnInteger =
   TisAn Integer

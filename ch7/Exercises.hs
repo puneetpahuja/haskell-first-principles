@@ -17,7 +17,7 @@ hunsD x = h
 foldBoolCase :: a -> a -> Bool -> a
 foldBoolCase x y b =
   case b of
-    True -> y
+    True  -> y
     False -> x
 
 foldBoolGaurd :: a -> a -> Bool -> a

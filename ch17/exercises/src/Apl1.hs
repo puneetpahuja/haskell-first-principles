@@ -1,10 +1,10 @@
 module Apl1 where
 
-import Control.Applicative
-import Data.Monoid
-import Test.QuickCheck
-import Test.QuickCheck.Checkers
-import Test.QuickCheck.Classes
+import           Control.Applicative
+import           Data.Monoid
+import           Test.QuickCheck
+import           Test.QuickCheck.Checkers
+import           Test.QuickCheck.Classes
 
 newtype Zippy a =
   Zippy (ZipList a)

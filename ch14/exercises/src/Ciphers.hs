@@ -1,19 +1,12 @@
 module Ciphers where
 
-import Control.Monad (forever)
-import Data.Bool (bool)
-import Data.Char (chr, isUpper, ord, toLower)
-import Debug.Trace (trace)
-import System.Exit (exitSuccess)
-import System.IO (BufferMode(NoBuffering), hSetBuffering, stdout)
-import Test.QuickCheck
-  ( Arbitrary
-  , Gen
-  , arbitrary
-  , ioProperty
-  , quickCheck
-  , verboseCheck
-  )
+import           Control.Monad   (forever)
+import           Data.Bool       (bool)
+import           Data.Char       (chr, isUpper, ord, toLower)
+import           Debug.Trace     (trace)
+import           System.Exit     (exitSuccess)
+import           System.IO       (BufferMode (NoBuffering), hSetBuffering, stdout)
+import           Test.QuickCheck (Arbitrary, Gen, arbitrary, ioProperty, quickCheck, verboseCheck)
 
 data ShiftDirection
   = L

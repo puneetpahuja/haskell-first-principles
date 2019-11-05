@@ -1,6 +1,6 @@
 module Exercises where
 
-import Data.List (intersperse)
+import           Data.List (intersperse)
 
 digitToWord :: Int -> String
 digitToWord n

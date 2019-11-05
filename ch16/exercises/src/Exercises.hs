@@ -2,7 +2,7 @@
 
 module Exercises where
 
-import Test.QuickCheck
+import           Test.QuickCheck
 
 -- be kind
 -- 1. a :: *
@@ -163,7 +163,7 @@ data Possibly a
 
 -- TODO: test this with quickCheck
 instance Functor Possibly where
-  fmap _ LolNope = LolNope
+  fmap _ LolNope     = LolNope
   fmap f (Yeppers x) = Yeppers (f x)
 
 -- Short Exercise (p688)
@@ -174,7 +174,7 @@ data Sum a b
 
 -- TODO: test with quickCheck
 instance Functor (Sum a) where
-  fmap _ (First a) = First a
+  fmap _ (First a)  = First a
   fmap f (Second b) = Second (f b)
 
 -- 2. Because we need f in (instance Functor f) to be of kind * -> *
@@ -213,8 +213,8 @@ data Quant a b
   | Bloor b
 
 instance Functor (Quant a) where
-  fmap _ Finance = Finance
-  fmap _ (Desk a) = Desk a
+  fmap _ Finance   = Finance
+  fmap _ (Desk a)  = Desk a
   fmap f (Bloor b) = Bloor (f b)
 
 data K a b =
@@ -272,7 +272,7 @@ data List a
   deriving (Eq, Show)
 
 instance Functor List where
-  fmap _ Nil = Nil
+  fmap _ Nil         = Nil
   fmap f (Cons a as) = Cons (f a) (fmap f as)
 
 data GoatLord a
@@ -307,11 +307,11 @@ data TalkToMe a
   | Read (String -> a)
 
 instance Show a => Show (TalkToMe a) where
-  show Halt = "Halt"
+  show Halt          = "Halt"
   show (Print msg a) = "Print " ++ msg ++ " " ++ show a
-  show (Read f) = "Read f"
+  show (Read f)      = "Read f"
 
 instance Functor TalkToMe where
-  fmap _ Halt = Halt
+  fmap _ Halt        = Halt
   fmap f (Print x a) = Print x (f a)
-  fmap f (Read g) = Read (f . g)
+  fmap f (Read g)    = Read (f . g)

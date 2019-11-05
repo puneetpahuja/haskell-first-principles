@@ -1,7 +1,7 @@
 module VignereCipher where
 
-import Data.Bool
-import Data.Char
+import           Data.Bool
+import           Data.Char
 
 data ShiftDirection
   = L

@@ -1,8 +1,8 @@
 module Exercises where
 
-import Control.Monad (forever)
-import Data.Char (isAlpha, toLower)
-import System.Exit (exitSuccess)
+import           Control.Monad (forever)
+import           Data.Char     (isAlpha, toLower)
+import           System.Exit   (exitSuccess)
 
 palindrome :: IO ()
 palindrome =
@@ -51,4 +51,4 @@ gimmePerson = do
   age <- ask "Age of person: "
   case mkPerson name (read age) of
     Right person -> putStrLn $ "Yay! Successfully got a person: " ++ show person
-    Left err -> putStrLn $ "Error occured: " ++ show err
+    Left err     -> putStrLn $ "Error occured: " ++ show err

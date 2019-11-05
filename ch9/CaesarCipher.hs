@@ -1,7 +1,7 @@
 module CaesarCipher where
 
-import Data.Bool
-import Data.Char
+import           Data.Bool
+import           Data.Char
 
 shift :: Int -> Char -> Char
 shift by c

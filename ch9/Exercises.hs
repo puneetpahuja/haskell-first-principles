@@ -1,6 +1,6 @@
 module Exercises where
 
-import Data.Bool
+import           Data.Bool
 
 eft :: Enum a => a -> a -> [a]
 eft from to
@@ -44,34 +44,34 @@ test :: Bool
 test = myLines sentences == shouldEqual
 
 length' :: [a] -> Int
-length' [] = 0
+length' []     = 0
 length' (_:xs) = 1 + length' xs
 
 myOr :: [Bool] -> Bool
-myOr [] = False
+myOr []     = False
 myOr (x:xs) = x || myOr xs
 
 myAny :: (a -> Bool) -> [a] -> Bool
-myAny _ [] = False
+myAny _ []     = False
 myAny f (x:xs) = f x || myAny f xs
 
 myElem :: Eq a => a -> [a] -> Bool
-myElem _ [] = False
+myElem _ []     = False
 myElem x (y:ys) = (x == y) || myElem x ys
 
 myElem' :: Eq a => a -> [a] -> Bool
 myElem' x = myAny (== x)
 
 myReverse :: [a] -> [a]
-myReverse [] = []
+myReverse []     = []
 myReverse (x:xs) = myReverse xs ++ [x]
 
 squish :: [[a]] -> [a]
-squish [] = []
+squish []       = []
 squish (xs:xss) = xs ++ squish xss
 
 squishMap :: (a -> [b]) -> [a] -> [b]
-squishMap _ [] = []
+squishMap _ []     = []
 squishMap f (x:xs) = f x ++ squishMap f xs
 
 squishMap' :: (a -> [b]) -> [a] -> [b]
@@ -81,11 +81,11 @@ squishAgain :: [[a]] -> [a]
 squishAgain = squishMap id
 
 myMaximumBy :: (a -> a -> Ordering) -> [a] -> a
-myMaximumBy _ [x] = x
+myMaximumBy _ [x]      = x
 myMaximumBy f (x:y:xs) = myMaximumBy f $ bool y x (f x y == GT) : xs
 
 myMinimumBy :: (a -> a -> Ordering) -> [a] -> a
-myMinimumBy _ [x] = x
+myMinimumBy _ [x]      = x
 myMinimumBy f (x:y:xs) = myMinimumBy f $ bool y x (f x y == LT) : xs
 
 myMaximum :: (Ord a) => [a] -> a

@@ -1,7 +1,7 @@
 module Examples where
 
-import Test.QuickCheck
-import Test.QuickCheck.Gen (oneof)
+import           Test.QuickCheck
+import           Test.QuickCheck.Gen (oneof)
 
 data Trivial =
   Trivial

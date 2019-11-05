@@ -1,6 +1,6 @@
 module ImportTopOrLocal where
 
-import TopOrLocal
+import           TopOrLocal
 
 --topLevelValue :: Integer
 --topLevelValue = 6

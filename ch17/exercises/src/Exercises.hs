@@ -1,12 +1,12 @@
 module Exercises where
 
-import Control.Applicative (liftA3)
-import Data.List (elemIndex)
-import Data.Monoid
-import Test.QuickCheck (arbitrary, frequency)
-import Test.QuickCheck.Arbitrary (Arbitrary)
-import Test.QuickCheck.Checkers
-import Test.QuickCheck.Classes (applicative)
+import           Control.Applicative       (liftA3)
+import           Data.List                 (elemIndex)
+import           Data.Monoid
+import           Test.QuickCheck           (arbitrary, frequency)
+import           Test.QuickCheck.Arbitrary (Arbitrary)
+import           Test.QuickCheck.Checkers
+import           Test.QuickCheck.Classes   (applicative)
 
 -- Lookups
 added :: Maybe Integer
@@ -116,7 +116,7 @@ instance Semigroup (List a) where
   Cons x xs <> ys = Cons x (xs <> ys)
 
 instance Functor List where
-  fmap _ Nil = Nil
+  fmap _ Nil         = Nil
   fmap f (Cons a as) = Cons (f a) (fmap f as)
 
 instance Applicative List where
