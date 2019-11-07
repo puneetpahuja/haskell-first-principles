@@ -1,6 +1,60 @@
-{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE InstanceSigs      #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Main where
+
+import           Control.Monad              (liftM)
+import           Control.Monad.IO.Class     (MonadIO (..), liftIO)
+import           Control.Monad.Trans.Class  (MonadTrans (..))
+import           Control.Monad.Trans.Except (ExceptT (..))
+import           Control.Monad.Trans.Maybe  (MaybeT (..))
+import           Control.Monad.Trans.Reader (ReaderT (..))
+import           Data.Function              ((&))
+import           Web.Scotty                 (get, html, param, scotty)
+
+newtype MaybeT' m a =
+  MaybeT'
+    { runMaybeT' :: m (Maybe a)
+    }
+
+instance Functor (MaybeT' m) where
+  fmap = undefined
+
+instance Applicative (MaybeT' m) where
+  pure = undefined
+  (<*>) = undefined
+
+instance Monad (MaybeT' m) where
+  (>>=) = undefined
+
+instance MonadTrans MaybeT' where
+  lift = undefined
+
+instance (MonadIO m) => MonadIO (MaybeT' m) where
+  liftIO :: IO a -> MaybeT' m a
+  liftIO = lift . liftIO
+
+newtype ReaderT' r m a =
+  ReaderT'
+    { runReaderT' :: r -> m a
+    }
+
+instance Functor (ReaderT' r m) where
+  fmap = undefined
+
+instance Applicative (ReaderT' r m) where
+  pure = undefined
+  (<*>) = undefined
+
+instance Monad (ReaderT' r m) where
+  (>>=) = undefined
+
+-- instance MonadTrans (ReaderT' r) where
+--   lift = undefined
+instance (MonadIO m) => MonadIO (ReaderT' r m) where
+  liftIO :: IO a -> ReaderT' r m a
+  -- liftIO = lift . liftIO
+  liftIO = ReaderT' . const . liftIO
 
 newtype EitherT e m a =
   EitherT
@@ -25,6 +79,10 @@ instance Monad m => Monad (EitherT e m) where
       case either_e_a of
         Right a -> runEitherT $ f a
         Left e  -> return $ Left e
+
+instance MonadTrans (EitherT e) where
+  lift :: (Monad m) => m a -> EitherT e m a
+  lift = EitherT . liftM Right
 
 swapEitherT :: (Functor m) => EitherT e m a -> EitherT a m e
 swapEitherT (EitherT m_E_e_a) = EitherT $ fmap swapEither m_E_e_a
@@ -62,6 +120,31 @@ instance (Monad m) => Applicative (StateT s m) where
       (f, s'') <- s2m_fs s'
       pure (f a, s'')
 
+instance (Monad m) => Monad (StateT s m) where
+  (>>=) :: StateT s m a -> (a -> StateT s m b) -> StateT s m b
+  StateT s2m_as >>= f =
+    StateT
+      (\s -> do
+         (a, s') <- s2m_as s
+         let (StateT s2m_bs) = f a
+         s2m_bs s')
+
+instance MonadTrans (StateT s) where
+  lift :: (Monad m) => m a -> StateT s m a
+  lift ma = StateT (\s -> (\a -> (a, s)) <$> ma)
+
+instance (MonadIO m) => MonadIO (StateT s m) where
+  liftIO :: IO a -> StateT s m a
+  liftIO = lift . liftIO
+
+embedded :: MaybeT (ExceptT String (ReaderT () IO)) Int
+-- embedded = MaybeT . ExceptT . ReaderT . const . pure . Right . Just $ 1
+embedded = 1 & Just & Right & pure & const & ReaderT & ExceptT & MaybeT
+
 main :: IO ()
-main = do
-  putStrLn "hello world"
+main =
+  scotty 3000 $
+  get "/:word" $ do
+    beam <- param "word"
+    liftIO (putStrLn "hello")
+    html $ mconcat ["<h1>Scotty, ", beam, " me up!</h1>"]
