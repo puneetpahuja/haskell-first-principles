@@ -89,8 +89,7 @@ instance Traversable List where
   traverse _ Nil          = pure Nil
 
 instance Arbitrary a => Arbitrary (List a) where
-  arbitrary =
-    frequency [(1, return Nil), (10, Cons <$> arbitrary <*> arbitrary)]
+  arbitrary = frequency [(1, return Nil), (10, Cons <$> arbitrary <*> arbitrary)]
 
 instance Eq a => EqProp (List a) where
   (=-=) = eq
@@ -108,8 +107,7 @@ instance Foldable (Three a b) where
 instance Traversable (Three a b) where
   traverse fn (Three a b c) = Three a b <$> fn c
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
-         Arbitrary (Three a b c) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = Three <$> arbitrary <*> arbitrary <*> arbitrary
 
 instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
@@ -189,18 +187,13 @@ instance Foldable Tree where
   foldMap f (Node lt a rt) = foldMap f lt `mappend` f a `mappend` foldMap f rt
 
 instance Traversable Tree where
-  traverse _ Empty = pure Empty
-  traverse fn (Leaf a) = Leaf <$> fn a
-  traverse fn (Node lt a rt) =
-    Node <$> traverse fn lt <*> fn a <*> traverse fn rt
+  traverse _ Empty           = pure Empty
+  traverse fn (Leaf a)       = Leaf <$> fn a
+  traverse fn (Node lt a rt) = Node <$> traverse fn lt <*> fn a <*> traverse fn rt
 
 instance Arbitrary a => Arbitrary (Tree a) where
   arbitrary =
-    frequency
-      [ (10, return Empty)
-      , (100, Leaf <$> arbitrary)
-      , (3, Node <$> arbitrary <*> arbitrary <*> arbitrary)
-      ]
+    frequency [(10, return Empty), (100, Leaf <$> arbitrary), (3, Node <$> arbitrary <*> arbitrary <*> arbitrary)]
 
 instance Eq a => EqProp (Tree a) where
   (=-=) = eq
@@ -212,8 +205,7 @@ data S n a =
 instance (Functor n, Arbitrary (n a), Arbitrary a) => Arbitrary (S n a) where
   arbitrary = S <$> arbitrary <*> arbitrary
 
-instance (Applicative n, Testable (n Property), Eq a, Eq (n a), EqProp a) =>
-         EqProp (S n a) where
+instance (Applicative n, Testable (n Property), Eq a, Eq (n a), EqProp a) => EqProp (S n a) where
   (=-=) = eq
 
 instance Functor n => Functor (S n) where

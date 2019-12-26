@@ -31,8 +31,7 @@ instance (Foldable f, Foldable g) => Foldable (Compose f g) where
   foldMap f (Compose fga) = foldMap (foldMap f) fga
 
 instance (Traversable f, Traversable g) => Traversable (Compose f g) where
-  traverse ::
-       Applicative f' => (a -> f' b) -> Compose f g a -> f' (Compose f g b)
+  traverse :: Applicative f' => (a -> f' b) -> Compose f g a -> f' (Compose f g b)
   traverse fn (Compose fga) = Compose <$> traverse (traverse fn) fga
 
 class Bifunctor p where

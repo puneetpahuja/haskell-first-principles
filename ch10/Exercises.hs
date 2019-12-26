@@ -73,9 +73,7 @@ seekritFunc :: String -> Int
 seekritFunc x = div (sum (map length (words x))) (length (words x))
 
 avgWordLength :: String -> Double
-avgWordLength x =
-  (fromIntegral . sum . map length . words $ x) /
-  (fromIntegral . length . words $ x)
+avgWordLength x = (fromIntegral . sum . map length . words $ x) / (fromIntegral . length . words $ x)
 
 myOr :: [Bool] -> Bool
 myOr = foldr (||) False

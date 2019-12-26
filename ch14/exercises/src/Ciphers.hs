@@ -51,8 +51,7 @@ uncaesar :: Int -> String -> String
 uncaesar shiftBy = caesar (-shiftBy)
 
 prop_vignere :: S -> S -> Bool
-prop_vignere (S keyword) (S msg) =
-  (unvignere keyword . vignere keyword $ msg) == msg
+prop_vignere (S keyword) (S msg) = (unvignere keyword . vignere keyword $ msg) == msg
   -- (unvignere keyword . vignere (trace "keyword \n" keyword) $
   --  (trace "msg \n" msg)) ==
   -- msg

@@ -50,7 +50,5 @@ instance FromJSON Host where
   parseJSON _          = fail "Expected an object for Host"
 
 instance FromJSON Color where
-  parseJSON (Object v) =
-    (Red <$> v .: "red") <|> (Blue <$> v .: "blue") <|>
-    (Yellow <$> v .: "yellow")
-  parseJSON _ = fail "Expected an object for Color"
+  parseJSON (Object v) = (Red <$> v .: "red") <|> (Blue <$> v .: "blue") <|> (Yellow <$> v .: "yellow")
+  parseJSON _          = fail "Expected an object for Color"

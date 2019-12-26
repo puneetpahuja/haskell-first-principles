@@ -96,15 +96,13 @@ data Programmer =
   deriving (Eq, Show)
 
 allOperatingSystems :: [OperatingSystem]
-allOperatingSystems =
-  [GnuPlusLinux, OpenBSDPlusNevermindJustBSDStill, Mac, Windows]
+allOperatingSystems = [GnuPlusLinux, OpenBSDPlusNevermindJustBSDStill, Mac, Windows]
 
 allLanguages :: [ProgLang]
 allLanguages = [Haskell, Agda, Idris, PureScript]
 
 allProgrammers :: [Programmer]
-allProgrammers =
-  [Programmer {os, lang} | os <- allOperatingSystems, lang <- allLanguages]
+allProgrammers = [Programmer {os, lang} | os <- allOperatingSystems, lang <- allLanguages]
 
 -- the quad
 -- 1. 4 + 4
@@ -243,8 +241,7 @@ fingerTaps = foldr (\a b -> (snd a) + b) 0
 
 mostPopular :: Eq a => a -> [a] -> a
 mostPopular deflt [] = deflt
-mostPopular deflt s@(x:xs) =
-  bool mostPopularNonX x (count x s > count mostPopularNonX s)
+mostPopular deflt s@(x:xs) = bool mostPopularNonX x (count x s > count mostPopularNonX s)
   where
     mostPopularNonX = mostPopular deflt nonXs
     nonXs = filter (/= x) xs

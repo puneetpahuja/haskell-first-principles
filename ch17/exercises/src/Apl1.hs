@@ -11,8 +11,7 @@ newtype Zippy a =
   deriving (Eq, Show)
 
 instance Semigroup a => Semigroup (Zippy a) where
-  (Zippy (ZipList xs)) <> (Zippy (ZipList ys)) =
-    Zippy . ZipList $ zipWith (<>) xs ys
+  (Zippy (ZipList xs)) <> (Zippy (ZipList ys)) = Zippy . ZipList $ zipWith (<>) xs ys
 
 instance Monoid a => Monoid (Zippy a) where
   mempty = Zippy $ pure mempty

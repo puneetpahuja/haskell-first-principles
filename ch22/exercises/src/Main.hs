@@ -200,9 +200,7 @@ main' = do
   print $ fromMaybe 0 xs' == 6
   print $ fromMaybe 0 zs' == 0
   print $ sequenceA [Just (3 :: Integer), Just 2, Just 1] == Just [3, 2, 1]
-  print $
-    sequenceA [x, y] ==
-    [[1, 4], [1, 5], [1, 6], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6]]
+  print $ sequenceA [x, y] == [[1, 4], [1, 5], [1, 6], [2, 4], [2, 5], [2, 6], [3, 4], [3, 5], [3, 6]]
   print $ sequenceA [xs', ys'] == Just [6, 9]
   print $ (summed <$> ((,) <$> xs' <*> ys')) == Just 15
   print $ fmap summed ((,) <$> xs' <*> zs') == Nothing
@@ -212,3 +210,6 @@ main' = do
   print $ (foldr (&&) True $ sequA (6 :: Integer)) == True
   print $ (fromMaybe [] (sequA <$> s')) == [True, False, False]
   print $ (fromMaybe False (bolt <$> ys')) == False
+
+jonk :: (a -> b) -> ((a -> Int) -> Int) -> ((b -> Int) -> Int)
+jonk ab aii = \bi -> _

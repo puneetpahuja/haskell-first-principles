@@ -3,14 +3,22 @@
 
 module Main where
 
-import           Control.Monad              (liftM)
+import           Control.Monad              (guard, liftM)
 import           Control.Monad.IO.Class     (MonadIO (..), liftIO)
 import           Control.Monad.Trans.Class  (MonadTrans (..))
 import           Control.Monad.Trans.Except (ExceptT (..))
 import           Control.Monad.Trans.Maybe  (MaybeT (..))
-import           Control.Monad.Trans.Reader (ReaderT (..))
+import           Control.Monad.Trans.Reader (Reader, ReaderT (..), runReader)
 import           Data.Function              ((&))
+import           Data.Functor.Identity      (Identity (..))
+import           Data.IORef                 (IORef, newIORef)
+import qualified Data.Map                   as M
+import           Data.Maybe                 (fromMaybe)
+import           Data.Text.Lazy             (Text)
+import qualified Data.Text.Lazy             as TL
+import           System.Environment         (getArgs)
 import           Web.Scotty                 (get, html, param, scotty)
+import           Web.Scotty.Trans           (ActionT, ScottyT, scottyT)
 
 newtype MaybeT' m a =
   MaybeT'
@@ -148,3 +156,87 @@ main =
     beam <- param "word"
     liftIO (putStrLn "hello")
     html $ mconcat ["<h1>Scotty, ", beam, " me up!</h1>"]
+
+-- Hypothetical exercise (p1062)
+-- I think they are same. As:
+-- ```
+-- ReaderT r Maybe a = ReaderT {runReaderT :: r -> Maybe a}
+-- MaybeT (Reader r) a = MaybeT {runMaybeT :: (Reader r) (Maybe a) :: Reader r (Maybe a) :: r -> Maybe a}
+-- ```
+rDec :: Num a => Reader a a
+rDec = ReaderT $ Identity . subtract 1
+
+rShow :: Show a => ReaderT a Identity String
+rShow = ReaderT $ Identity . show
+
+rPrintAndInc :: (Num a, Show a) => ReaderT a IO a
+rPrintAndInc =
+  ReaderT
+    (\x -> do
+       putStrLn $ "Hi: " <> show x
+       return $ x + 1)
+
+sPrintIncAccum :: (Num s, Show s) => StateT s IO String -- StateT {runStateT :: s -> IO (String, s)}
+sPrintIncAccum =
+  StateT
+    (\s -> do
+       putStrLn $ "Hi: " <> show s
+       pure (show s, s + 1))
+
+isValid :: String -> Bool
+isValid v = '!' `elem` v
+
+maybeExcite :: MaybeT IO String
+maybeExcite = do
+  v <- lift getLine
+  guard $ isValid v
+  return v
+
+doExcite :: IO ()
+doExcite = do
+  putStrLn "say something excite!"
+  excite <- runMaybeT maybeExcite
+  case excite of
+    Nothing -> putStrLn "MOAR EXCITE"
+    Just e  -> putStrLn $ "Good, was very excite: " ++ e
+
+main' :: IO ()
+main' = do
+  print $ runReader rDec (1 :: Integer) == 0
+  print $ fmap (runReader rDec) [1 .. 10 :: Integer] == [0 .. 9]
+  print $ runReaderT rShow (1 :: Integer) == "1"
+  print $ fmap (runReaderT rShow) ([1 .. 10 :: Integer]) == ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  runReaderT rPrintAndInc (1 :: Integer) >>= print
+  traverse (runReaderT rPrintAndInc) [1 .. 10 :: Integer] >>= print
+  runStateT sPrintIncAccum (10 :: Integer) >>= print
+  mapM (runStateT sPrintIncAccum) [1 .. 5 :: Integer] >>= print
+
+-- TODO: chapter exercises from here till end (definitions also)
+data Config =
+  Config
+    { counts :: IORef (M.Map Text Integer)
+    , prefix :: Text
+    }
+
+type Scotty = ScottyT Text (ReaderT Config IO)
+
+type Handler = ActionT Text (ReaderT Config IO)
+
+bumpBoomp :: Text -> M.Map Text Integer -> (M.Map Text Integer, Integer)
+bumpBoomp k m = undefined
+
+app :: Scotty ()
+app =
+  get "/:key" $ do
+    unprefixed <- param "key"
+    let key' = mappend undefined unprefixed
+    newInteger <- undefined
+    html $ mconcat ["<h1>Success! Count was: ", TL.pack $ show newInteger, "</h1>"]
+
+main'' :: IO ()
+main'' = do
+  [prefixArg] <- getArgs
+  counter <- newIORef M.empty
+  let config = undefined
+      runR = undefined
+  scottyT 3000 runR app

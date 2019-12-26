@@ -92,8 +92,7 @@ data Three a b c =
 instance Functor (Three a b) where
   fmap f (Three x y z) = Three x y (f z)
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
-         Arbitrary (Three a b c) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -125,8 +124,7 @@ data Four a b c d =
 instance Functor (Four a b c) where
   fmap f (Four x y z q) = Four x y z (f q)
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
-         Arbitrary (Four a b c d) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) => Arbitrary (Four a b c d) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -282,24 +280,15 @@ data GoatLord a
   deriving (Eq, Show)
 
 instance Functor GoatLord where
-  fmap _ NoGoat = NoGoat
-  fmap f (OneGoat a) = OneGoat (f a)
-  fmap f (MoreGoats gla gla' gla'') =
-    MoreGoats (fmap f gla) (fmap f gla') (fmap f gla'')
+  fmap _ NoGoat                     = NoGoat
+  fmap f (OneGoat a)                = OneGoat (f a)
+  fmap f (MoreGoats gla gla' gla'') = MoreGoats (fmap f gla) (fmap f gla') (fmap f gla'')
 
 testGoatLord :: IO ()
 testGoatLord =
   print $
-  fmap
-    (+ 2)
-    (MoreGoats
-       NoGoat
-       (OneGoat 4)
-       (MoreGoats (OneGoat 5) (OneGoat 7) (MoreGoats NoGoat NoGoat (OneGoat 44)))) ==
-  (MoreGoats
-     NoGoat
-     (OneGoat 6)
-     (MoreGoats (OneGoat 7) (OneGoat 9) (MoreGoats NoGoat NoGoat (OneGoat 46))))
+  fmap (+ 2) (MoreGoats NoGoat (OneGoat 4) (MoreGoats (OneGoat 5) (OneGoat 7) (MoreGoats NoGoat NoGoat (OneGoat 44)))) ==
+  (MoreGoats NoGoat (OneGoat 6) (MoreGoats (OneGoat 7) (OneGoat 9) (MoreGoats NoGoat NoGoat (OneGoat 46))))
 
 data TalkToMe a
   = Halt

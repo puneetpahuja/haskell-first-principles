@@ -47,16 +47,7 @@ type Exclamation = String
 
 madlibbinBetter' :: Exclamation -> Adverb -> Noun -> Adjective -> String
 madlibbinBetter' e adv noun adj =
-  mconcat
-    [ e
-    , "! he said "
-    , adv
-    , " as he jumped into his car "
-    , noun
-    , " and drove of with his "
-    , adj
-    , " wife."
-    ]
+  mconcat [e, "! he said ", adv, " as he jumped into his car ", noun, " and drove of with his ", adj, " wife."]
 
 -- infix names for function args
 asc :: Eq a => (a -> a -> a) -> a -> a -> a -> Bool
@@ -82,10 +73,7 @@ instance Monoid (First' a) where
 instance Arbitrary a => Arbitrary (First' a) where
   arbitrary = do
     x <- arbitrary
-    frequency
-      [ (1, return $ First' {getFirst' = Nada})
-      , (2, return $ First' {getFirst' = Only x})
-      ]
+    frequency [(1, return $ First' {getFirst' = Nada}), (2, return $ First' {getFirst' = Only x})]
 
 type FirstMappend = First' String -> First' String -> First' String -> Bool
 
@@ -165,12 +153,10 @@ data Three a b c =
   Three a b c
   deriving (Eq, Show)
 
-instance (Semigroup a, Semigroup b, Semigroup c) =>
-         Semigroup (Three a b c) where
+instance (Semigroup a, Semigroup b, Semigroup c) => Semigroup (Three a b c) where
   (Three x y z) <> (Three x' y' z') = Three (x <> x') (y <> y') (z <> z')
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
-         Arbitrary (Three a b c) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -183,13 +169,10 @@ data Four a b c d =
   Four a b c d
   deriving (Eq, Show)
 
-instance (Semigroup a, Semigroup b, Semigroup c, Semigroup d) =>
-         Semigroup (Four a b c d) where
-  (Four x y z q) <> (Four x' y' z' q') =
-    Four (x <> x') (y <> y') (z <> z') (q <> q')
+instance (Semigroup a, Semigroup b, Semigroup c, Semigroup d) => Semigroup (Four a b c d) where
+  (Four x y z q) <> (Four x' y' z' q') = Four (x <> x') (y <> y') (z <> z') (q <> q')
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
-         Arbitrary (Four a b c d) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) => Arbitrary (Four a b c d) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -269,15 +252,8 @@ instance (CoArbitrary a, Arbitrary b) => Arbitrary (Combine a b) where
 instance Show (Combine a b) where
   show _ = "Combine's show"
 
-combineSemigroupAssoc ::
-     (Semigroup b, Eq b)
-  => Combine a b
-  -> Combine a b
-  -> Combine a b
-  -> a
-  -> Bool
-combineSemigroupAssoc f g h a =
-  (uncombine ((f <> g) <> h) $ a) == (uncombine (f <> (g <> h)) $ a)
+combineSemigroupAssoc :: (Semigroup b, Eq b) => Combine a b -> Combine a b -> Combine a b -> a -> Bool
+combineSemigroupAssoc f g h a = (uncombine ((f <> g) <> h) $ a) == (uncombine (f <> (g <> h)) $ a)
 
 combineMonoidLeftIdentity :: (Monoid b, Eq b) => Combine a b -> a -> Bool
 combineMonoidLeftIdentity c@(Combine f) a = (uncombine (c <> mempty)) a == f a
@@ -304,10 +280,8 @@ instance Arbitrary (Comp a) where
 instance Show (Comp a) where
   show _ = "Comp's show"
 
-compSemigroupAssoc ::
-     (Semigroup a, Eq a) => Comp a -> Comp a -> Comp a -> a -> Bool
-compSemigroupAssoc f g h a =
-  (uncomp ((f <> g) <> h) $ a) == (uncomp (f <> (g <> h)) $ a)
+compSemigroupAssoc :: (Semigroup a, Eq a) => Comp a -> Comp a -> Comp a -> a -> Bool
+compSemigroupAssoc f g h a = (uncomp ((f <> g) <> h) $ a) == (uncomp (f <> (g <> h)) $ a)
 
 compMonoidLeftIdentity :: (Monoid a, Eq a) => Comp a -> a -> Bool
 compMonoidLeftIdentity c@(Comp f) a = (uncomp (c <> mempty)) a == f a

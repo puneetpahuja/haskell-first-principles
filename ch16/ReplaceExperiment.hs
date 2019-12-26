@@ -21,8 +21,7 @@ twiceLifted = (fmap . fmap) replaceWithP
 twiceLifted' :: [Maybe [Char]] -> [Maybe Char]
 twiceLifted' = twiceLifted
 
-thriceLifted ::
-     (Functor f2, Functor f1, Functor f) => f (f1 (f2 a)) -> f (f1 (f2 Char))
+thriceLifted :: (Functor f2, Functor f1, Functor f) => f (f1 (f2 a)) -> f (f1 (f2 Char))
 thriceLifted = (fmap . fmap . fmap) replaceWithP
 
 thriceLifted' :: [Maybe [Char]] -> [Maybe [Char]]

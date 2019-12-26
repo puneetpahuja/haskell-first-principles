@@ -47,10 +47,7 @@ data Puzzle =
 instance Show Puzzle where
   show puzzle@(Puzzle _ discovered guessed) =
     (intersperse ' ' $ fmap renderPuzzleChar discovered) ++
-    " Guessed so far: " ++
-    guessed ++
-    "\nGuesses Left: " ++
-    show (incorrectGuessesAllowed - incorrectGuesses puzzle)
+    " Guessed so far: " ++ guessed ++ "\nGuesses Left: " ++ show (incorrectGuessesAllowed - incorrectGuesses puzzle)
 
 freshPuzzle :: String -> Puzzle
 freshPuzzle word = Puzzle word (map (const Nothing) word) ""
@@ -66,8 +63,7 @@ renderPuzzleChar Nothing  = '_'
 renderPuzzleChar (Just c) = c
 
 fillInCharacter :: Puzzle -> Char -> Puzzle
-fillInCharacter (Puzzle word filledInSoFar s) c =
-  Puzzle word newFilledInSoFar (c : s)
+fillInCharacter (Puzzle word filledInSoFar s) c = Puzzle word newFilledInSoFar (c : s)
   where
     zipper :: Char -> Char -> Maybe Char -> Maybe Char
     zipper guessed wordChar guessChar =

@@ -166,13 +166,11 @@ parseSemVer = do
   release <- P.optional $ P.try (P.char '-' >> (ps strOrNumb []))
   metadata <- P.optional $ P.try $ P.char '+' >> ps strOrNumb []
   _ <- P.eof
-  return $
-    SemVer major minor patch (fromMaybe [] release) (fromMaybe [] metadata)
+  return $ SemVer major minor patch (fromMaybe [] release) (fromMaybe [] metadata)
 
 strOrNumb :: P.Parser StrOrNumb
 strOrNumb =
-  ((Numb <$> (P.try P.integer <* P.notFollowedBy (P.noneOf "-+."))) <|>
-   (Str <$> P.some (P.noneOf "-+."))) :: P.Parser StrOrNumb
+  ((Numb <$> (P.try P.integer <* P.notFollowedBy (P.noneOf "-+."))) <|> (Str <$> P.some (P.noneOf "-+."))) :: P.Parser StrOrNumb
 
 ps :: P.Parser a -> [a] -> P.Parser [a]
 ps pa xs' = do
@@ -190,14 +188,10 @@ main :: IO ()
 main = do
   let psv = P.parseString parseSemVer mempty
   print $ psv "2.1.1" == P.Success (SemVer 2 1 1 [] [])
+  print $ psv "1.0.0-x.7.z.92" == P.Success (SemVer 1 0 0 [Str "x", Numb 7, Str "z", Numb 92] [])
+  print $ psv "1.0.0-gamma+002" == P.Success (SemVer 1 0 0 [Str "gamma"] [Numb 2])
   print $
-    psv "1.0.0-x.7.z.92" ==
-    P.Success (SemVer 1 0 0 [Str "x", Numb 7, Str "z", Numb 92] [])
-  print $
-    psv "1.0.0-gamma+002" == P.Success (SemVer 1 0 0 [Str "gamma"] [Numb 2])
-  print $
-    psv "1.0.0-beta+oof.sha.41af286" ==
-    P.Success (SemVer 1 0 0 [Str "beta"] [Str "oof", Str "sha", Str "41af286"])
+    psv "1.0.0-beta+oof.sha.41af286" == P.Success (SemVer 1 0 0 [Str "beta"] [Str "oof", Str "sha", Str "41af286"])
 -- *Main> P.parseString (ps strOrNumb []) mempty "beta"
 -- Success [Str "beta"]
 -- *Main> P.parseString (ps strOrNumb []) mempty "beta.taeu"

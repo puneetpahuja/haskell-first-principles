@@ -38,9 +38,7 @@ mkPerson name age
   | name /= "" && age > 0 = Right $ Person name age
   | name == "" = Left NameEmpty
   | not (age > 0) = Left AgeTooLow
-  | otherwise =
-    Left $
-    PersonInvalidUnknown $ "Name was: " ++ show name ++ " Age was: " ++ show age
+  | otherwise = Left $ PersonInvalidUnknown $ "Name was: " ++ show name ++ " Age was: " ++ show age
 
 ask :: String -> IO String
 ask msg = putStr msg >> getLine

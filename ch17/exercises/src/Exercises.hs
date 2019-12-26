@@ -101,9 +101,7 @@ testConstant = do
 testFixerUpper :: IO ()
 testFixerUpper = do
   print $ (const <$> Just "Hello" <*> pure "World") == Just "Hello"
-  print $
-    ((,,,) <$> Just 90 <*> Just 10 <*> Just "Tierness" <*> pure [1 .. 3]) ==
-    Just (90, 10, "Tierness", [1 .. 3])
+  print $ ((,,,) <$> Just 90 <*> Just 10 <*> Just "Tierness" <*> pure [1 .. 3]) == Just (90, 10, "Tierness", [1 .. 3])
 
 -- List Applicative
 data List a
@@ -200,10 +198,7 @@ instance (Eq e, Eq a) => EqProp (Validation e a) where
 testValidation :: IO ()
 testValidation =
   quickBatch $
-  applicative
-    (Success (1 :: Sum Int, "ab", 4 :: Product Int) :: Validation [String] ( Sum Int
-                                                                           , String
-                                                                           , Product Int))
+  applicative (Success (1 :: Sum Int, "ab", 4 :: Product Int) :: Validation [String] (Sum Int, String, Product Int))
 
 -- Chapter Exercises
 -- 1. type is []
@@ -272,8 +267,7 @@ instance (Monoid a, Monoid b) => Applicative (Three a b) where
 instance (Eq a, Eq b, Eq c) => EqProp (Three a b c) where
   (=-=) = eq
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c) =>
-         Arbitrary (Three a b c) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c) => Arbitrary (Three a b c) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -315,8 +309,7 @@ instance (Monoid a, Monoid b, Monoid c) => Applicative (Four a b c) where
 instance (Eq a, Eq b, Eq c, Eq d) => EqProp (Four a b c d) where
   (=-=) = eq
 
-instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) =>
-         Arbitrary (Four a b c d) where
+instance (Arbitrary a, Arbitrary b, Arbitrary c, Arbitrary d) => Arbitrary (Four a b c d) where
   arbitrary = do
     a <- arbitrary
     b <- arbitrary
@@ -333,8 +326,7 @@ instance Functor (Four' a) where
 
 instance Monoid a => Applicative (Four' a) where
   pure = Four' mempty mempty mempty
-  Four' a1 a2 a3 f <*> Four' a1' a2' a3' x =
-    Four' (a1 <> a1') (a2 <> a2') (a3 <> a3') (f x)
+  Four' a1 a2 a3 f <*> Four' a1' a2' a3' x = Four' (a1 <> a1') (a2 <> a2') (a3 <> a3') (f x)
 
 instance (Eq a, Eq b) => EqProp (Four' a b) where
   (=-=) = eq

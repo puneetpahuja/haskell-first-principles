@@ -93,12 +93,10 @@ capitalizeWord = map toUpper
 
 prop_idempotenceCapitalizeWord :: String -> Bool
 prop_idempotenceCapitalizeWord x =
-  (capitalizeWord x == twice capitalizeWord x) &&
-  (capitalizeWord x == fourTimes capitalizeWord x)
+  (capitalizeWord x == twice capitalizeWord x) && (capitalizeWord x == fourTimes capitalizeWord x)
 
 prop_idempotenceSort :: (Eq a, Ord a) => [a] -> Bool
-prop_idempotenceSort x =
-  (sort x == twice sort x) && (sort x == fourTimes sort x)
+prop_idempotenceSort x = (sort x == twice sort x) && (sort x == fourTimes sort x)
 
 runQc :: IO ()
 runQc = do

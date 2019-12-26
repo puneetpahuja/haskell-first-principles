@@ -15,8 +15,7 @@ main =
       \ 4 remainder 2" $ do dividedBy 22 5 `shouldBe` (4, 2)
       it "4 multiplied by 6 is 24" $ do mult 4 6 `shouldBe` 24
       it "5 multiplied by 0 is 0" $ do mult 5 0 `shouldBe` 0
-      it "x + 1 is always greater than x" $ do
-        property $ \x -> x + 1 > (x :: Int)
+      it "x + 1 is always greater than x" $ do property $ \x -> x + 1 > (x :: Int)
 
 dividedBy :: Integral a => a -> a -> (a, a)
 dividedBy num denom = go num denom 0
