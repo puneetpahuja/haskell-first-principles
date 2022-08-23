@@ -1,2 +1,2 @@
-# haskell-first-principles
-Code examples and solutions for the book : Learning Haskell from first principles
+# Haskell Programming from First Principles
+Code examples and problem solutions from the book **_Haskell Programming from First Principles_**.
